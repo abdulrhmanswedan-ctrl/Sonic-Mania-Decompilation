@@ -1,6 +1,7 @@
 name: Build Mania
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - dependencies/**
@@ -11,7 +12,7 @@ on:
       - master
 
 env:
-  GENERAL_FLAGS: "-DWITH_RSDK=OFF -DCMAKE_BUILD_TYPE=Release"
+  GENERAL_FLAGS: "-DWITH_RSDK=OFF -DCMAKE_BUILD_TYPE=Release -DRETRO_DISABLE_PLUS=OFF"
   V5_FLAGS: "-DRETRO_REVISION=2"
   V5U_FLAGS: "-DRETRO_REVISION=3"
   # Normally you would use $VCPKG_INSTALLATION_PATH, but it's broken...so hardcode C:/vcpkg
@@ -45,6 +46,7 @@ jobs:
         with:
           name: mania-windows
           path: artifacts
+
   mania-windows-x64:
     runs-on: windows-latest
     steps:
@@ -70,6 +72,7 @@ jobs:
         with:
           name: mania-windows-x64
           path: artifacts
+
   mania-linux:
     runs-on: ubuntu-latest
     steps:
